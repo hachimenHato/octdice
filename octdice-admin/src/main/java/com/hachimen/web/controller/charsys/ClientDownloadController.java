@@ -1,5 +1,6 @@
 package com.hachimen.web.controller.charsys;
 
+import com.alibaba.fastjson2.JSONObject;
 import com.hachimen.charsys.domain.ChrConfig;
 import com.hachimen.charsys.service.IChrConfigService;
 import com.hachimen.charsys.service.IClientDownloadService;
@@ -26,7 +27,7 @@ import java.util.List;
  */
 @Api("客户端更新检测")
 @RestController
-@RequestMapping("/charsys/client_update")
+@RequestMapping("/charsys")
 public class ClientDownloadController extends BaseController
 {
     @Autowired
@@ -38,12 +39,69 @@ public class ClientDownloadController extends BaseController
     @ApiOperation("查询服务器最新版本")
     @ApiResponses({ @ApiResponse(code = 200, message = "获取成功,无需更新返回true,需要更新返回下载url") , @ApiResponse(code = 500, message = "获取失败，无有效数据或服务器异常") })
     @Anonymous
-    @GetMapping("/{version}")
+    @GetMapping("/client_update/{version}")
     public AjaxResult ClientDownloadUpdate (@ApiParam(value = "客户端当前版本号", required = true) @PathVariable String version)
     {
-        String result = null;
+        JSONObject result = null;
         try {
             result = clientDownloadService.getClientDownloadUpdate(version);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return error(e.getMessage());
+        }
+        return success(result);
+    }
+
+    /**
+     * 查询序列库更新下载信息
+     */
+    @ApiOperation("查询序列库最新版本")
+    @ApiResponses({ @ApiResponse(code = 200, message = "获取成功,无需更新返回true,需要更新返回下载url") , @ApiResponse(code = 500, message = "获取失败，无有效数据或服务器异常") })
+    @Anonymous
+    @GetMapping("/resource_update/{version}")
+    public AjaxResult ResourceDownloadUpdate (@ApiParam(value = "序列库当前版本号", required = true) @PathVariable String version)
+    {
+        JSONObject result = null;
+        try {
+            result = clientDownloadService.getResourceDownloadUpdate(version);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return error(e.getMessage());
+        }
+        return success(result);
+    }
+
+    /**
+     * 查询人物卡模板更新下载信息
+     */
+    @ApiOperation("查询人物卡模板最新版本")
+    @ApiResponses({ @ApiResponse(code = 200, message = "获取成功,无需更新返回true,需要更新返回下载url") , @ApiResponse(code = 500, message = "获取失败，无有效数据或服务器异常") })
+    @Anonymous
+    @GetMapping("/char_update/{version}")
+    public AjaxResult CharDownloadUpdate (@ApiParam(value = "人物卡模板当前版本号", required = true) @PathVariable String version)
+    {
+        JSONObject result = null;
+        try {
+            result = clientDownloadService.getCharDownloadUpdate(version);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return error(e.getMessage());
+        }
+        return success(result);
+    }
+
+    /**
+     * 查询公告信息
+     */
+    @ApiOperation("查询公告")
+    @ApiResponses({ @ApiResponse(code = 200, message = "获取成功") , @ApiResponse(code = 500, message = "获取失败，无有效数据或服务器异常") })
+    @Anonymous
+    @GetMapping("/notice")
+    public AjaxResult NoticeDownloadUpdate ()
+    {
+        JSONObject result = null;
+        try {
+            result = clientDownloadService.getNoticeDownloadUpdate();
         } catch (Exception e) {
             e.printStackTrace();
             return error(e.getMessage());

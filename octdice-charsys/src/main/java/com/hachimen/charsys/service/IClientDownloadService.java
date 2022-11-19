@@ -1,5 +1,6 @@
 package com.hachimen.charsys.service;
 
+import com.alibaba.fastjson2.JSONObject;
 import com.hachimen.charsys.domain.ChrConfig;
 
 import java.util.List;
@@ -19,5 +20,29 @@ public interface IClientDownloadService
      * @param version 人物卡模块基础设置
      * @return 人物卡模块基础设置集合
      */
-    public String getClientDownloadUpdate(String version);
+    public JSONObject getClientDownloadUpdate(String version);
+
+    /**
+     * 查询序列库更新下载信息
+     *
+     * @param version 人物卡模块基础设置
+     * @return 人物卡模块基础设置集合
+     */
+    JSONObject getResourceDownloadUpdate(String version);
+
+    /**
+     * 查询人物卡模板更新下载信息
+     *
+     * @param version 人物卡模块基础设置
+     * @return 人物卡模块基础设置集合
+     */
+    JSONObject getCharDownloadUpdate(String version);
+
+    /**
+     * 查询公告信息
+     *
+     *
+     * @return 人物卡模块基础设置集合
+     */
+    JSONObject getNoticeDownloadUpdate();
 }

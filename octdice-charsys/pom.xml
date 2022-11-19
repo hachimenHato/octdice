@@ -22,6 +22,10 @@
             <groupId>com.hachimen</groupId>
             <artifactId>hachimen-common</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.hachimen</groupId>
+            <artifactId>hachimen-system</artifactId>
+        </dependency>
 
     </dependencies>
     
